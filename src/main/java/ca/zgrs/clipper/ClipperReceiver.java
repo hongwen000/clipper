@@ -1,7 +1,8 @@
 package ca.zgrs.clipper;
 
 import android.app.Activity;
-import android.text.ClipboardManager;
+import android.content.ClipboardManager;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.BroadcastReceiver;
@@ -36,7 +37,8 @@ public class ClipperReceiver extends BroadcastReceiver {
             Log.d(TAG, "Setting text into clipboard");
             String text = intent.getStringExtra(EXTRA_TEXT);
             if (text != null) {
-                cb.setText(text);
+                ClipData clip = ClipData.newPlainText("Clipper", text);
+                cb.setPrimaryClip(clip);
                 setResultCode(Activity.RESULT_OK);
                 setResultData("Text is copied into clipboard.");
             } else {
@@ -45,11 +47,17 @@ public class ClipperReceiver extends BroadcastReceiver {
             }
         } else if (isActionGet(intent.getAction())) {
             Log.d(TAG, "Getting text from clipboard");
-            CharSequence clip = cb.getText();
-            if (clip != null) {
-                Log.d(TAG, String.format("Clipboard text: %s", clip));
-                setResultCode(Activity.RESULT_OK);
-                setResultData(clip.toString());
+            ClipData clipData = cb.getPrimaryClip();
+            if (clipData != null && clipData.getItemCount() > 0) {
+                CharSequence clip = clipData.getItemAt(0).getText();
+                if (clip != null) {
+                    Log.d(TAG, String.format("Clipboard text: %s", clip));
+                    setResultCode(Activity.RESULT_OK);
+                    setResultData(clip.toString());
+                } else {
+                    setResultCode(Activity.RESULT_CANCELED);
+                    setResultData("");
+                }
             } else {
                 setResultCode(Activity.RESULT_CANCELED);
                 setResultData("");

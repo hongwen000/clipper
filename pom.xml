@@ -9,8 +9,8 @@
     <name>clipboard-service</name>
 
     <properties>
-        <platform.version>2.3.3</platform.version>
-        <android.sdk.version>10</android.sdk.version>
+        <platform.version>13</platform.version>
+        <android.sdk.version>33</android.sdk.version>
     <android.sdk.path>${env.ANDROID_HOME}</android.sdk.path>
     </properties>
 

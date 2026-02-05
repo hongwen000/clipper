@@ -1,1 +1,34 @@
-target
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+gradle/
+gradlew
+gradlew.bat
+local.properties
+
+# IDE
+.idea/
+*.iml
+
+# Build outputs
+*.apk
+*.ap_
+*.dex
+
+# Temp files
+*.class
+*.log
+*.tmp
+*.temp
+nul
+tmpclaude-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ADBKeyBoard (separate project)
+ADBKeyBoard/
